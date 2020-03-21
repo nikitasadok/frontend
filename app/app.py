@@ -13,21 +13,26 @@ url_post = 'http://localhost:5000'
 @app.route("/")
 @app.route("/home")
 def home():
-    # employees=[]
+   def home():
+    employees=[]
     # # Change this url for get request
-    # response = requests.get(url_get)
-    # obj = json.loads(response.text)
-    # for i in obj:
-    #     employees.append(i)
-    # return render_template('home.html', employees=employees)
-    # # This is test section
-    with open('test.json', 'r') as myfile:
-        employees=[]
-        data=myfile.read()
-        obj = json.loads(data)
-        for i in obj:
-            employees.append(i)
+    url_get = 'http://localhost:30000'
+    response = requests.get(url_get)
+    #obj = response.json()
+    obj = json.loads(response.text)
+    if (type(obj) == dict):
+        employees.append(obj)
         return render_template('home.html', employees=employees)
+    return render_template('home.html', employees=obj)
+    # # This is test section
+    #with open('test.json', 'r') as myfile:
+     #   employees=[]
+      #  data=myfile.read()
+       # obj = json.loads(data)
+       # for i in obj:
+        #    employees.append(i)
+       # return render_template('home.html', employees=employees)
+
 
 @app.route("/about")
 def about():
